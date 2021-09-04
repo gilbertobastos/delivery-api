@@ -12,6 +12,24 @@ const pedidoRepository = new PedidoRepository(
  * @param {Express.Response} res
  * @param {Function} next
  */
+function consultarPedidoPeloId(req, res, next) {
+  try {
+    const idPedido = parseInt(req.query.id);
+    if (isNaN(idPedido)) throw new Error("Id fornecido inválido!");
+
+    const pedido = pedidoRepository.getPedidoPeloId(idPedido);
+    res.send(pedido).status(200);
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ * @param {Function} next
+ */
 function adicionarPedido(req, res, next) {
   try {
     if (
@@ -113,11 +131,7 @@ function atualizarStatusEntregaPedido(req, res, next) {
  */
 function deletarPedido(req, res, next) {
   try {
-    if (
-      !(
-        typeof req.body.id === "number"
-      )
-    ) {
+    if (!(typeof req.body.id === "number")) {
       throw new Error("Parâmetros fornecidos inválidos!");
     }
 
@@ -132,11 +146,12 @@ function deletarPedido(req, res, next) {
   } catch (err) {
     next(err);
   }
-} 
+}
 
 export default {
+  consultarPedidoPeloId,
   adicionarPedido,
   atualizarPedido,
   atualizarStatusEntregaPedido,
-  deletarPedido
+  deletarPedido,
 };
