@@ -148,8 +148,23 @@ function deletarPedido(req, res, next) {
   }
 }
 
+/**
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ * @param {Function} next
+ */
+function consultarProdutosMaisPedidos(req, res, next) {
+  try {
+    res.send(pedidoRepository.getProdutosMaisVendidos()).status(200);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export default {
   consultarPedidoPeloId,
+  consultarProdutosMaisPedidos,
   adicionarPedido,
   atualizarPedido,
   atualizarStatusEntregaPedido,
