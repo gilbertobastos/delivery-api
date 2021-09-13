@@ -1,5 +1,5 @@
 import Pedido from "../models/Pedido.js";
-import PedidoRepository from "../models/PedidoRepository.js";
+import PedidoRepository from "../repositories/PedidoRepository.js";
 import path from "path";
 
 const pedidoRepository = new PedidoRepository(

@@ -1,5 +1,5 @@
 import fs from "fs";
-import Pedido from "./Pedido.js";
+import Pedido from "../models/Pedido.js";
 
 class PedidoRepository {
   constructor(arquivoBancoJSON) {
