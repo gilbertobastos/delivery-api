@@ -129,6 +129,36 @@ function atualizarStatusEntregaPedido(req, res, next) {
  * @param {Express.Response} res
  * @param {Function} next
  */
+function consultarValorTotalPedidosCliente(req, res, next) {
+  try {
+    const nomeCliente = req.query.nomeCliente;
+    res.send({valorTotal: pedidoRepository.getValorTotalPedidosCliente(nomeCliente)}).status(200);
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ * @param {Function} next
+ */
+function consultarValorTotalPedidosProduto(req, res, next) {
+  try {
+    const nomeProduto = req.query.nomeProduto;
+    res.send({valorTotal: pedidoRepository.getValorTotalPedidosProduto(nomeProduto)}).status(200);
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ * @param {Function} next
+ */
 function deletarPedido(req, res, next) {
   try {
     if (!(typeof req.body.id === "number")) {
@@ -137,7 +167,6 @@ function deletarPedido(req, res, next) {
 
     const id = req.body.id;
     const pedidoRemovidoArray = pedidoRepository.deletePedidoPeloId(id);
-    console.log(pedidoRemovidoArray);
 
     if (pedidoRemovidoArray.length === 0) {
       throw new Error("Não foi localizado nenhum produto com o id informado.");
@@ -169,4 +198,6 @@ export default {
   atualizarPedido,
   atualizarStatusEntregaPedido,
   deletarPedido,
+  consultarValorTotalPedidosCliente,
+  consultarValorTotalPedidosProduto
 };
